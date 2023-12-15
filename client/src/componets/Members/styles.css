@@ -1,0 +1,89 @@
+.membersdiv {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-content: center;
+  background-repeat: no-repeat;
+  border-radius: 15%;
+}
+
+
+
+.divCardMembers {
+  width: 250px;
+  background-color: aliceblue;
+  margin: 10px;
+  box-shadow: 0 0px 4px rgba(0, 0, 0, .5);
+}
+
+.divCardMembers img {
+  width: 100%;
+}
+
+.divCardMembers p {
+  padding: 0 10px;
+}
+
+.div1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-content: center;
+}
+
+.form {
+  /* display: grid;
+  justify-content: center;
+  align-items: center;
+  margin-top: 200px; */
+  margin-top: 200px;
+  justify-content: center;
+  padding: 20px;
+  background-color: #000000a9;
+  border: 1px solid black;
+  border-radius: 10px;
+  flex-direction: column;
+  align-items: center;
+}
+
+.div1 label {
+  display: inline-table;
+  margin-bottom: 8px;
+  margin: 10px;
+}
+
+input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
+
+textarea {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  min-height: 50px;
+  min-width: 250px;
+  max-height: 150px;
+}
+
+.button {
+  background-color: black;
+  color: #fff;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  width: 150px;
+  align-content: center;
+}
+
+.button:hover {
+  background-color: #b06340;
+  color: black;
+
+}

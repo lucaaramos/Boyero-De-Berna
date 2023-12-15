@@ -1,0 +1,70 @@
+.containerImageAbout {
+    width: 40%;
+    display: flex;
+    align-items: center
+}
+.h1{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-around;
+    font-size: 40;
+    
+
+}
+
+.containerImageAbout figure {
+    overflow: hidden;
+    transition: all .5s ease;
+    box-shadow: 3px 5px 5px rgba(51, 29, 3, 0.8);
+}
+
+.containerImageAbout figure img {
+    transition: .5s;
+    object-fit: contain;
+}
+
+.containerImageAbout figure img:hover {
+    transform: scale(1.1);
+}
+
+.aboutDivBack {
+    background-image: radial-gradient(#B06440 1px, transparent 1px),
+        radial-gradient(#B06440 2px, transparent 1px);
+    background-position: 0 0, 25px 25px;
+    background-size: 50px 50px;
+    padding: 0;
+    margin: 0;
+}
+  .responsive-image {
+    width: 100%; 
+    height: auto;
+    
+  }
+
+.aboutData {
+    box-shadow: 3px 5px 5px rgba(51, 29, 3, 0.8);
+    background-color: white;
+    padding: 10px;
+    width: 35%;
+    margin-bottom: 30px;
+}
+
+
+@media (max-width: 680px) {
+    .responseAbout {
+        display: flex;
+        flex-direction: column;
+        min-width: 100vw;
+    }
+
+    .containerImageAbout {
+        width: 100%;
+    }
+
+    .aboutData {
+        width: 100%;
+    }
+
+    
+}

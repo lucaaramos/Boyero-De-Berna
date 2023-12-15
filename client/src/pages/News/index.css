@@ -1,0 +1,166 @@
+body {
+  overflow-x: hidden;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  max-width: 100%;
+}
+
+.news{
+  margin: 25px;
+  padding: 25px;
+  /* border: #333 solid 2px; */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+  border-radius: 20px;
+  background-color: #f5f5f5;
+  width: 600px;
+  height: auto;
+  
+  
+}
+
+.aboutDivBack {
+  background-color: #f5f5f5;
+  min-height: 100vh;
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.responsive-image {
+  height: 1000px;
+  margin: 0;
+}
+
+.header {
+  height: 50vh;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.pageTitle {
+  margin: 20px;
+  text-align: center;
+  font-size: 24px;
+  color: #333;
+}
+
+.newsContainer {
+  padding: 20px;
+  margin: 0;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.newsItem {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+  padding: 20px;
+  width: 100%;
+  text-align: center;
+}
+
+.newsTitle {
+  margin: 0;
+  font-size: 24px;
+  color: #333;
+}
+
+.newsContent {
+  color: #555;
+}
+
+.newsAuthor {
+  color: #888;
+}
+
+.img {
+  max-width: 100%;
+  height: auto;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.button {
+  background: #f79d1e;
+  color: white;
+  padding: 10px 20px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  border-radius: 4px;
+  transition: background 0.3s ease;
+}
+
+.button:hover {
+  background: #e18616;
+}
+
+.toggle-archive-button {
+  background: #f79d1e;
+  color: white;
+  padding: 10px 20px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  border-radius: 4px;
+  transition: background 0.3s ease;
+}
+
+.toggle-archive-button:hover {
+  background: #e18616;
+}
+
+.divButtons{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.divButtons button,
+.divButtons a {
+  margin: 5px 0; /* Espacio vertical entre los botones */
+}
+
+@media screen and (max-width: 768px) {
+  .body{
+    max-width: 100%;
+  }
+  
+  .header {
+    height: 40vh;
+  }
+
+  .aboutDivBack{
+    max-width: 100%;
+  }
+  .news{
+    width: 300px;
+  }
+
+  .newsItem {
+    margin: 10px 0;
+  }
+
+  .imgFondo {
+    margin-top: 20px;
+  }
+  .responsive-image {
+    width: 100%; /* Ajusta el ancho de la imagen al 100% del contenedor */
+    height: auto;
+    margin-top: 50px; /* Permite que la altura se ajuste proporcionalmente */
+  }
+  .divButtons button,
+  .divButtons a {
+    margin: 5px 0; /* Espacio vertical entre los botones en diseño responsivo */
+  }
+}

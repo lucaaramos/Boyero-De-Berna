@@ -1,0 +1,10 @@
+.contact {}
+
+.contact svg {
+    color: #c3c3c3;
+    transition: color 0.3s ease;
+}
+
+.contact svg:hover {
+    color: #b06340;
+}

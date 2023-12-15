@@ -1,0 +1,18 @@
+.event {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+.event div{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+@media (max-width:600px) {
+    .event {
+        display: flex;
+        flex-direction: column;
+    }
+}

@@ -1,0 +1,66 @@
+.divFormEvents {
+    max-width: 600px;
+    height: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid white;
+    border-radius: 5px;
+    
+  }
+  
+  .divFormEvents p {
+    color: #555;
+    font-size: 16px;
+    margin-bottom: 15px;
+  }
+  
+  .divFormEvents form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    
+  }
+  
+  .divFormEvents input,
+  .divFormEvents select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .divFormEvents .error {
+    color: red;
+    font-size: 14px;
+  }
+  
+  .divFormEvents button {
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #B06440;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .divFormEvents button:hover {
+    background-color: #8E4A2F;
+  }
+  
+  .divFormEvents ul {
+    list-style: none;
+    padding-left: 0;
+    cursor: pointer;
+  }
+  
+  .divFormEvents ul:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .divFormEvents ul strong {
+    font-weight: bold;
+  }
+  
