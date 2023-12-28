@@ -54,6 +54,33 @@ const imgNews = async(req,res)=>{
         res.status(400).send(e)
     }
 } 
+// const imgNews = async (req, res) => {
+//     const { file } = req;
+//     const { id } = req.params;
+
+//     try {
+//         // Procesamiento de imágenes
+//         const largeFilename = `large-${file.filename}`;
+//         const resizeFilename = `resize-${file.filename}`;
+        
+//         // Aquí se realiza el procesamiento de las imágenes utilizando helperImg
+//         await helperImg(file.path, largeFilename, 500);
+//         await helperImg(file.path, resizeFilename, 150);
+
+//         // Actualización en la base de datos
+//         conn.query(`UPDATE news SET image = "/${largeFilename}" WHERE id = '${id}'`, (err, resp) => {
+//             if (err) {
+//                 return res.status(500).json({ error: "Error en la actualización de la base de datos" });
+//             } 
+//             res.status(200).json({ message: "Imagen cargada y base de datos actualizada correctamente" });
+//         });
+//     } catch (error) {
+//         // Manejo de errores
+//         console.error("Error durante el procesamiento de imágenes o la actualización en la base de datos:", error);
+//         res.status(500).json({ error: "Error interno del servidor" });
+//     }
+// };
+
 
 module.exports = {
     img,
