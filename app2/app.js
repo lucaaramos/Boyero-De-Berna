@@ -9,6 +9,14 @@ const sponsors = require("./routes/sponsors.router")
 const participants = require("./routes/eventParticipants.routes")
 const path = require('path')
 
+// Middleware para habilitar CORS
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', 'https://boyero-de-berna.vercel.app');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.header('Access-Control-Allow-Credentials', true);
+    next();
+  });
 
 app.use(express.json())
 app.use(cors());
@@ -19,6 +27,7 @@ app.use("/news",news)
 app.use("/image",images)
 app.use("/sponsors",sponsors)
 app.use("/participant",participants)
+
 
 
 const PORT = process.env.PORT || 3001
