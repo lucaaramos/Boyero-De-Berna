@@ -10,7 +10,7 @@ router
         .get("/getListSponsors",getSponsors)
         .get("/getSponsors/:id",getSponsorById)
         .get("/getSponsorsAleatory/:amount",getSponsorsAleatory)
-        .delete("/delete/:id",tokenValidation,deleteSponsor)
+        .delete("/delete/:id",deleteSponsor)
         .put("/update/:id",tokenValidation,updtateSponsor)
 
 module.exports = router
