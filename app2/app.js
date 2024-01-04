@@ -9,14 +9,10 @@ const sponsors = require("./routes/sponsors.router")
 const participants = require("./routes/eventParticipants.routes")
 const path = require('path')
 
-// Middleware para habilitar CORS
-app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    next();
-  });
+app.use(cors());
+
 
 app.use(express.json())
-app.use(cors());
 app.use(express.static(path.join(__dirname,"optimize")))
 app.use("/user",user)
 app.use("/event",event)
