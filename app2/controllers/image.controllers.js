@@ -81,7 +81,13 @@ const imgNews = async (req, res) => {
         if (err) {
           return res.status(500).json({ error: 'Error updating image in database' });
         }
-        res.status(200).send('Image uploaded');
+  
+        // Construir la URL completa de la imagen
+        const serverURL = 'https://boyero-de-berna.onrender.com'; // Tu URL base del servidor
+        const imageURL = `${serverURL}/optimize${imagePath}`; // Ruta completa de la imagen
+  
+        // Aquí, dentro de la función de retorno de la consulta, enviamos la URL de la imagen
+        res.status(200).json({ imageURL });
       });
     } catch (error) {
       res.status(500).json({ error: 'Internal server error' });
