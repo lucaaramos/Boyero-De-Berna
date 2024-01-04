@@ -38,7 +38,7 @@ export default function NewsList() {
               <h3 className="newsTitle">{noticia.title}</h3>
               <p className="newsContent">{noticia.content}</p>
               <p className="newsAuthor">Por: {noticia.user.name}</p>
-              <img className='img' src={`${process.env.REACT_APP_URI_API}${noticia.image}`} />
+              <img className='img' src={`https://boyero-de-berna.onrender${noticia.image}`} />
               {/* C:\Users\lucav\OneDrive\Desktop\deploy\Boyero-De-Berna\app2\optimize\large-1697558057705.jpg */}
               
               <div className='divButtons'>
