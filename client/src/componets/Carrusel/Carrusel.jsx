@@ -1,6 +1,6 @@
 import React from 'react'
 import carrusel1 from './../../assets/boyero.jpg'
-import carrusel2 from './../../assets/boyero2.jfif'
+import carrusel2 from './../../assets/clubPic/Imagen de WhatsApp 2023-10-16 a las 19.00.38_36fb5b03.jpg'
 import carrusel3 from './../../assets/boyero3.jpg'
 import '../Carrusel/carrusel.css'
 
@@ -18,7 +18,7 @@ export default function Carrusel() {
             <img src={carrusel1} className="d-block w-100" style={{height: '100vh',objectFit:'cover'}} alt="..." />
           </div>
           <div className="carousel-item">
-            <img src={carrusel2} className="d-block w-100" style={{height: '100vh',objectFit:'cover'}} alt="..." />
+            <img src={carrusel2} className="d-block w-100" style={{height: '100vh', width:'500px', objectFit:'cover'}} alt="..." />
           </div>
           <div className="carousel-item">
             <img src={carrusel3} className="d-block w-100" style={{height: '100vh',objectFit:'cover'}} alt="..." />

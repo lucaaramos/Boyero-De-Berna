@@ -25,10 +25,9 @@ export default function NewsList() {
 
   return (
     <div className="aboutDivBack">
-      <img src={img} className='responsive-image' alt="">
-
+      <img src={img}  className='responsive-image' alt="">
       </img>
-        <h1>Noticias</h1>
+        <h1 className='title-news'>Noticias</h1>
       {
           user?.type === "admin" ? <CreateNews />:<></>
         }
@@ -39,9 +38,9 @@ export default function NewsList() {
               <h3 className="newsTitle">{noticia.title}</h3>
               <p className="newsContent">{noticia.content}</p>
               <p className="newsAuthor">Por: {noticia.user.name}</p>
-              <img className='img' src={`${process.env.REACT_APP_URI_API}/optimize${noticia.image}`} />
+              <img className='img' src={`${process.env.REACT_APP_URI_API}${noticia.image}`} />
               {/* C:\Users\lucav\OneDrive\Desktop\deploy\Boyero-De-Berna\app2\optimize\large-1697558057705.jpg */}
-              ñ
+              
               <div className='divButtons'>
               {
                   user?.type === "admin" ? <button className='button' onClick={() => handleDelete(noticia.id)}>X</button> :<></>
