@@ -19,7 +19,7 @@
 //   const upload = multer({ storage: storage });
 const { tokenValidation } = require("../lib/validateToken");
 const express = require("express");
-const { imgNews } = require("../controllers/image.controllers");
+const { imgNews, img, imgSponsors } = require("../controllers/image.controllers");
 const router = express.Router();
 const multer = require('multer');
 
