@@ -3,6 +3,10 @@ const conn = require("../config/config")
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer")
 const { OAuth2Client } = require('google-auth-library');
+const crypto = require('crypto');
+const mailSettings = require("../lib/emails");
+require('dotenv').config();
+
 
 const register = (req,res)=>{
     const {name,password,email} = req.body
@@ -111,85 +115,11 @@ async function refreshAccessToken(refreshToken) {
         throw error;
     }
 }
-const requestPassword = async (req, res) => {
-    let { email } = req.body;
-    // Verifica si el correo existe
-    const querySearchEmail = `SELECT * FROM users WHERE email = ?`;
-    conn.query(querySearchEmail, [email], async (err, results) => {
-        if (err) {
-            console.log('Error al buscar al usuario', err);
-            return res.status(500).json({ message: "Error del servidor" });
-        }
-        if (results.length === 0) {
-            return res.status(404).json({ message: "No se encontró un usuario con ese correo" });
-        }
-
-        // Genera un token único y seguro
-        const userID = results[0].id;
-        const token = jwt.sign({ userID }, 'clave-segura');
-        console.log(token);
-
-        // Almacena el token en la tabla 'password_reset_tokens'
-        const querySaveToken = `INSERT INTO password_reset_tokens (token, user_id) VALUES (?,?)`;
-        conn.query(querySaveToken, [token, userID], async (error) => {
-            try{
-            if (error) {
-                console.log("Error al guardar el token", error);
-                return res.status(500).json({ message: "Error del servidor" });
-            }
-                const newAccessToken = await refreshToken('1//04PNgbPKtQQRGCgYIARAAGAQSNwF-L9IrfRn8KtvFft31kj3hcAjKQ2JoCYS_iOQnWqTvnefY_P_esBLy8QFhxGOC5PQfe3KC5ng')
-                
-                // Enviar correo electrónico para restablecer contraseña
-                var transporter = nodemailer.createTransport({
-                    // service: 'gmail',
-                    // auth: {
-                    //     type: 'OAuth2',
-                    //     user: process.env.EMAIL,
-                    //     accessToken: newAccessToken, 
-                    //     clientId: "67881110567-qdokov1685fqdpjnh05rkggevjo68phd.apps.googleusercontent.com",
-                    //     clientSecret: "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",
-                    //     refreshToken: "1//04PNgbPKtQQRGCgYIARAAGAQSNwF-L9IrfRn8KtvFft31kj3hcAjKQ2JoCYS_iOQnWqTvnefY_P_esBLy8QFhxGOC5PQfe3KC5ng"
-                    service: 'gmail',
-                 secure: true, 
-                 host: "smtp.gmail.com",
-                 auth: {
-                     type: "OAuth2",
-                     user: process.env.EMAIL,
-                     password: process.env.PASSWORD,
-                     clientId: "67881110567-qdokov1685fqdpjnh05rkggevjo68phd.apps.googleusercontent.com",
-                     clientSecret: "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",
-                     refreshToken: "1//04PNgbPKtQQRGCgYIARAAGAQSNwF-L9IrfRn8KtvFft31kj3hcAjKQ2JoCYS_iOQnWqTvnefY_P_esBLy8QFhxGOC5PQfe3KC5ng",
-                    },
-                });
-                
-                var mailOptions = {
-                    from: process.env.EMAIL,
-                    to: email,
-                    subject: 'Restablecimiento de Contraseña',
-                    text: `Haz clic en este enlace para restablecer tu contraseña ${process.env.URL}/user/tokenPassword/${token}`
-                };
-                
-                transporter.sendMail(mailOptions, (error) => {
-                    if(error){
-                        console.log("error al enviar en mail", error);
-                        return res.status(500).json("error al enviar el correo")
-                    }
-                    console.log("correo enviado", mailOptions)
-                    res.status(200).send(mailOptions);
-                });
-            }catch(err){
-                return err
-            }
-        });
-        });
-    };
-    
-    // const requestPassword = (req, res) => {
+// const requestPassword = async (req, res) => {
 //     let { email } = req.body;
-    
 //     // Verifica si el correo existe
 //     const querySearchEmail = `SELECT * FROM users WHERE email = ?`;
-//     conn.query(querySearchEmail, [email], (err, results) => {
+//     conn.query(querySearchEmail, [email], async (err, results) => {
 //         if (err) {
 //             console.log('Error al buscar al usuario', err);
 //             return res.status(500).json({ message: "Error del servidor" });
@@ -197,52 +127,101 @@ const requestPassword = async (req, res) => {
 //         if (results.length === 0) {
 //             return res.status(404).json({ message: "No se encontró un usuario con ese correo" });
 //         }
-        
+
 //         // Genera un token único y seguro
 //         const userID = results[0].id;
-//         const token = jwt.sign({ userID }, 'clave-segura'); 
+//         const token = jwt.sign({ userID }, 'clave-segura');
 //         console.log(token);
 
-//         // Almacena el token en la tabla 'password_reset_token'
+//         // Almacena el token en la tabla 'password_reset_tokens'
 //         const querySaveToken = `INSERT INTO password_reset_tokens (token, user_id) VALUES (?,?)`;
-//         conn.query(querySaveToken, [token, userID], function (error) {
+//         conn.query(querySaveToken, [token, userID], async (error) => {
+//             try{
 //             if (error) {
 //                 console.log("Error al guardar el token", error);
 //                 return res.status(500).json({ message: "Error del servidor" });
 //             }
-
-//             // Enviar correo electrónico para restablecer contraseña
-//             var transporter = nodemailer.createTransport({
-//                 service: 'gmail',
-//                 secure: true, 
-//                 host: "smtp.gmail.com",
-//                 auth: {
-//                     type: "OAuth2",
-//                     user: process.env.EMAIL,
-//                     password: process.env.PASSWORD,
-//                     clientId: "67881110567-qdokov1685fqdpjnh05rkggevjo68phd.apps.googleusercontent.com",
-//                     clientSecret: "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",
-//                     refreshToken: "1//04PNgbPKtQQRGCgYIARAAGAQSNwF-L9IrfRn8KtvFft31kj3hcAjKQ2JoCYS_iOQnWqTvnefY_P_esBLy8QFhxGOC5PQfe3KC5ng",
-//                 }
-//             });
-
-//             var mailOptions = {
-//                 from: "luca46594@gmail.com",
-//                 to: email,
-//                 subject: 'Restablecimiento de Contraseña',
-//                 text: `Haz clic en este enlace para restablecer tu contraseña ${process.env.URL}/${token}/restore`
-//             };
-            
-//             transporter.sendMail(mailOptions, (error) => {
-//                 if (error) {
-//                     console.log("Error al enviar el correo electrónico", error);
-//                     return res.status(500).json("Error al enviar el correo");
-//                 } 
-//                 return res.status(200).json(token);
-//             });
+//                 const newAccessToken = await refreshToken('1//04PNgbPKtQQRGCgYIARAAGAQSNwF-L9IrfRn8KtvFft31kj3hcAjKQ2JoCYS_iOQnWqTvnefY_P_esBLy8QFhxGOC5PQfe3KC5ng')
+                
+//                 // Enviar correo electrónico para restablecer contraseña
+//                 var transporter = nodemailer.createTransport({
+//                     service: 'gmail',
+//                  secure: true, 
+//                  host: "smtp.gmail.com",
+//                  auth: {
+//                      user: process.env.EMAIL,
+//                      password: process.env.PASSWORD,
+//                     },
+//                 });
+                
+//                 var mailOptions = {
+//                     from: process.env.EMAIL,
+//                     to: email,
+//                     subject: 'Restablecimiento de Contraseña',
+//                     text: `Haz clic en este enlace para restablecer tu contraseña ${process.env.URL}/user/tokenPassword/${token}`
+//                 };
+                
+//                 transporter.sendMail(mailOptions, (error) => {
+//                     if(error){
+//                         console.log("error al enviar en mail", error);
+//                         return res.status(500).json("error al enviar el correo")
+//                     }
+//                     console.log("correo enviado", mailOptions)
+//                     res.status(200).send(mailOptions);
+//                 });
+//             }catch(err){
+//                 return err
+//             }
 //         });
-//     });
-// };
+//         });
+//     };
+    
+    const requestPassword = async (req, res) => {
+    let { email } = req.body;
+    
+    // Verifica si el correo existe
+    const querySearchEmail = `SELECT * FROM users WHERE email = ?`;
+    conn.query(querySearchEmail, [email], (err, results) => {
+        if (err) {
+            console.log('Error al buscar al usuario', err);
+            return res.status(500).json({ message: "Error del servidor" });
+        }
+        if (results.length === 0) {
+            return res.status(404).json({ message: "No se encontró un usuario con ese correo" });
+        }
+        console.log(email)
+        // Genera un token único y seguro
+        const userID = results[0].id;
+        const token = crypto.randomBytes(64).toString('hex');
+
+        
+
+        // Almacena el token en la tabla 'password_reset_token'
+        const querySaveToken = `INSERT INTO password_reset_tokens (token, user_id) VALUES (?,?)`;
+        conn.query(querySaveToken, [token, userID], async function (error) {
+            if (error) {
+                console.log("Error al guardar el token", error);
+                return res.status(500).json({ message: "Error del servidor" });
+            }
+            const transporter = mailSettings.transporter;
+            const sender = mailSettings.recoveryPassword(email, token);
+
+            await transporter.sendMail(sender, (errorMail, info)=> {
+                if(errorMail){
+                    console.log(errorMail)
+                }
+                console.log(info)
+            })
+
+        });
+    });
+    return res.send('ok')
+};
+
+
+
+
+
 
 
 
