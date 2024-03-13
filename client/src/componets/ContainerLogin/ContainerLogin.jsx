@@ -49,7 +49,7 @@ export default function ContainerLogin() {
               <div className="buttonsLogin">
                 <button type="submit" className="button" onClick={initSession}>Inicia Sesión</button>
                 <button className="button" onClick={() => navigate("/registro")} style={{ color: "rgb(255, 255, 255)" }}>Crear Usuario</button>
-                <button className="button" onClick={() => navigate("/recuperar-contraseña")} style={{ color: "rgb(255, 255, 255)" }}>Olvidaste Contraseña?</button>
+                {/* <button className="button" onClick={() => navigate("/recuperar-contraseña")} style={{ color: "rgb(255, 255, 255)" }}>Olvidaste Contraseña?</button> */}
               </div>
           </form>
         </div>
