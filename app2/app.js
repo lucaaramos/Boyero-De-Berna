@@ -22,6 +22,7 @@ app.use(cors(corsOptions));
 app.use(express.json())
 app.use(express.static(path.join(__dirname,"optimize")))
 app.get( "/", (req, res) => {
+    res.send('ok')
 }); 
 
 
