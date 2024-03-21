@@ -69,53 +69,61 @@ const deleteEvent = (req,res)=>{
     }
 }
 
-const getEventList = (_req,res)=>{
-    conn.query(`select events.*, users.id as idUser, users.name, users.email from events JOIN users on events.user_id = users.id where events.status = 1 ORDER BY events.date;`,(error,resp)=>{
-        if(error) res.status(500).send(error)
-        else {
-            let data = resp.map(element => {
-                return {
-                    id: element.id,
-                    title: element.title,
-                    description: element.description,
-                    date:element.date,
-                    image: element?.image !== "undefined" ? element?.image : "https://th.bing.com/th/id/OIP.KCBUNS5Iy8kyliWRZRlSOAAAAA?pid=ImgDet&rs=1",
-                    place:element.place,
-                    user: {
-                        name: element.name,
-                        email: element.email
+const getEventList = (_req, res) => {
+    try {
+        conn.query(`select events.*, users.id as idUser, users.name, users.email from events JOIN users on events.user_id = users.id where events.status = 1 ORDER BY events.date;`, (error, resp) => {
+            if (error) {
+                throw error;
+            } else {
+                let data = resp.map(element => {
+                    return {
+                        id: element.id,
+                        title: element.title,
+                        description: element.description,
+                        date: element.date,
+                        image: element?.image !== "undefined" ? element?.image : "https://th.bing.com/th/id/OIP.KCBUNS5Iy8kyliWRZRlSOAAAAA?pid=ImgDet&rs=1",
+                        place: element.place,
+                        user: {
+                            name: element.name,
+                            email: element.email
+                        }
                     }
-                    
-                }
-            });
-            res.status(200).json(data)
-        }
-    })
+                });
+                res.status(200).json(data);
+            }
+        });
+    } catch (error) {
+        res.status(500).send(error);
+    }
 }
 
-const getEventById = (req,res)=>{
-    const {id} = req.params
-    conn.query(`select events.*, users.id as idUser, users.name, users.email from events JOIN users on events.user_id = users.id where events.id=${id}`,(error,resp)=>{
-        if(error) res.status(500).send(error)
-        else {
-            let data = resp.map(element => {
-                return {
-                    id: element.id,
-                    title: element.title,
-                    description: element.description,
-                    place:element.place,
-                    date:element.date,
-                    image: element?.image !== "undefined" ? element?.image : "https://th.bing.com/th/id/OIP.KCBUNS5Iy8kyliWRZRlSOAAAAA?pid=ImgDet&rs=1",
-                    user: {
-                        name: element.name,
-                        email: element.email
+const getEventById = (req, res) => {
+    try {
+        const { id } = req.params;
+        conn.query(`select events.*, users.id as idUser, users.name, users.email from events JOIN users on events.user_id = users.id where events.id=${id}`, (error, resp) => {
+            if (error) {
+                throw error;
+            } else {
+                let data = resp.map(element => {
+                    return {
+                        id: element.id,
+                        title: element.title,
+                        description: element.description,
+                        place: element.place,
+                        date: element.date,
+                        image: element?.image !== "undefined" ? element?.image : "https://th.bing.com/th/id/OIP.KCBUNS5Iy8kyliWRZRlSOAAAAA?pid=ImgDet&rs=1",
+                        user: {
+                            name: element.name,
+                            email: element.email
+                        }
                     }
-                    
-                }
-            });
-            res.status(200).json(data)
-        }
-    })
+                });
+                res.status(200).json(data);
+            }
+        });
+    } catch (error) {
+        res.status(500).send(error);
+    }
 }
 
 
