@@ -9,7 +9,14 @@ const sponsors = require("./routes/sponsors.router")
 const participants = require("./routes/eventParticipants.routes")
 const path = require('path')
 
-app.use(cors());
+// app.use(cors());
+
+const corsOptions = {
+    origin: "https://boyero-de-berna.vercel.app", 
+  };
+  
+app.use(cors(corsOptions));
+  
 
 
 app.use(express.json())
