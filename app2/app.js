@@ -22,11 +22,11 @@ app.use(cors(corsOptions));
 app.use(express.json())
 app.use(express.static(path.join(__dirname,"optimize")))
 app.get( "/", (req, res) => {
-    
-    app.use("/sponsors",sponsors)
-    app.use("/event",event)
 }); 
 
+
+app.use("/sponsors",sponsors)
+app.use("/event",event)
 app.use("/user",user)
 app.use("/news",news)
 app.use("/image",images)
