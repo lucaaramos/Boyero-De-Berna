@@ -40,10 +40,10 @@ export const Home = () => {
       <div style={{width:"100%", display:"flex", justifyContent:"center",marginBottom:40}}>
         <Link to="" className='sabermas'>Si quieres saber mas sobre el bienestar del animal pincha aqui!</Link>
       </div>
-      <div style={{minHeight:"70vh"}}>
+      {/* <div style={{minHeight:"70vh"}}>
         <h5 style={{display:"flex",justifyContent: "space-around"}}>Conoce nuestros sponsors/miembros</h5>
         <Members count={4}/>
-      </div>
+      </div> */}
       <div className='events' style={{}}>
         <Events/>
       </div>
