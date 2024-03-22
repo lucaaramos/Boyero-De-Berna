@@ -29,7 +29,7 @@ import React, { useEffect, useState } from 'react'
 import { CardEvents } from '../Card/CardEvents'
 import axios from 'axios'
 
-const Events = () => {
+export const Events = () => {
   const [events, setEvents] = useState(null);
   const [error, setError] = useState(false);
 
@@ -72,4 +72,3 @@ const Events = () => {
   );
 }
 
-export default Events;
