@@ -12,7 +12,8 @@ const path = require('path')
 // app.use(cors());
 
 const corsOptions = {
-    origin: "https://boyero-de-berna.vercel.app", 
+    origin: "https://boyero-de-berna.vercel.app"
+    // origin: "http://localhost:3000", 
   };
   
 app.use(cors(corsOptions));
@@ -37,7 +38,8 @@ app.use("/participant",participants)
 
 const PORT = process.env.PORT || 3001
 app.listen(PORT,()=>{
-    console.log(`Server on port: ${PORT}`)
+    console.log(`Server on port: ${PORT}`,
+    console.log(process.env.URL))
 })
 
 

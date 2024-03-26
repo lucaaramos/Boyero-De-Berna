@@ -12,7 +12,7 @@ export default function CreateParticipant() {
   const [category, setCategory] = useState([]);
   const [ myDogs, setMyDogs ] = useState([]) 
   const [form, setForm] = useState({
-    names: "",
+    name: "",
     sex: "",
     race: "",
     registration_number: "",
@@ -28,7 +28,7 @@ export default function CreateParticipant() {
 
   const selectedOldDog =(dog) => {
     setForm({
-      names: dog.name,
+      name: dog.name,
       sex: dog.sex,
       race: dog.race,
       registration_number: dog.registration_number,
@@ -71,6 +71,7 @@ export default function CreateParticipant() {
       ...prevForm,
       [name]: value,
     }));
+    // console.log(form.value)
   };
 
   const isFormValid = () => {
@@ -97,6 +98,8 @@ export default function CreateParticipant() {
       data: form,
     };
 
+    console.log(id)
+
     axios(config)
       .then((res) => {
        if(res.status===200) {
@@ -106,6 +109,7 @@ export default function CreateParticipant() {
        if(res.status===201) alert(res.data)
       })
       .catch((error) => {
+      
         console.log("Error en la petición para actualizar información del usuario:", error);
       });
   };
@@ -151,8 +155,8 @@ export default function CreateParticipant() {
         
         <input
           type="text"
-          name="names"
-          value={form.names}
+          name="name"
+          value={form.name}
           onChange={handleInputChange}
           placeholder="Nombre"
         />
