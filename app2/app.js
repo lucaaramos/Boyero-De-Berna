@@ -12,7 +12,7 @@ const path = require('path')
 // app.use(cors());
 
 const corsOptions = {
-    origin: "https://boyero-de-berna.vercel.app"
+    origin: "https://www.boyerodebernaclub.com.ar"
     // origin: "http://localhost:3000", 
   };
   
