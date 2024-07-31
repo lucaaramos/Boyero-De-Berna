@@ -2,7 +2,11 @@ import {React, useState} from 'react'
 import dog from '../../assets/boyero.jpg'
 import '../../componets/Members/styles.css'
 import { Members } from '../../componets/Members/Members.jsx'
+import emailjs from 'emailjs-com';
 
+const SERVICE_ID = 'service_cbbku12';
+const TEMPLATE_ID = 'template_ifrhopy';
+const USER_ID = '57Rrz8rKoeO0xekMN';
 export default function Contact() {
     const [contact, setContact] = useState({
       name:"",
@@ -17,8 +21,36 @@ export default function Contact() {
         [e.target.name]:e.target.value
       })
     }
-    function handleSubmit(e) {
+    const handleSubmit = (e) => {
       e.preventDefault();
+  
+      // Parámetros para EmailJS
+      const templateParams = {
+        from_name: contact.name,
+        from_email: contact.email,
+        message: contact.message,
+        city: contact.city,
+        numberPhone: contact.numberPhone
+      };
+  
+      emailjs.send(SERVICE_ID,TEMPLATE_ID, templateParams,USER_ID
+      )
+        .then((response) => {
+          console.log('SUCCESS!', response.status, response.text);
+          alert('Mensaje enviado con éxito');
+        }, (error) => {
+          console.error('FAILED...', error);
+          alert('Hubo un error al enviar el mensaje. Por favor, inténtelo de nuevo.');
+        });
+  
+      // Limpiar el formulario después de enviar
+      setContact({
+        name: "",
+        email: "",
+        message: "",
+        city: "",
+        numberPhone: ""
+      });
     }
         return (
       <div className='' style={{backgroundImage: `url(${dog})`,display:"flex",flexDirection:"column",alignItems:"center", backgroundRepeat:"no-repeat"}}>
