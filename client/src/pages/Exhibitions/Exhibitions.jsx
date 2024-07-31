@@ -79,7 +79,9 @@ export default function Exhibitions() {
             {events?.length && events?.map((e) => { 
               return <div key={e.id}>
               <CardExpo onClick={() => handleEventClick(e.id)}  getData={getData} key={e.id} day={e.date} id={e.id} image={e.image} title={e.title} place={e.place} description={e.description}/>
-              <button onClick={() => handleEventClick(e.id)}>Exportar PDF</button>
+              {user?.type === "admin" && (
+              <button onClick={() => handleEventClick(e.id)}>Exportar PDF</button>      
+                  )}
               </div>
               })}
           </div>
