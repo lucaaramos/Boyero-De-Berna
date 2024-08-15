@@ -24,13 +24,12 @@ export default function Contact() {
     const handleSubmit = (e) => {
       e.preventDefault();
   
-      // Parámetros para EmailJS
       const templateParams = {
-        from_name: contact.name,
-        from_email: contact.email,
-        message: contact.message,
-        city: contact.city,
-        numberPhone: contact.numberPhone
+        user_name: contact.name,
+        user_email: contact.email,
+        // user_subject: "Nuevo mensaje de contacto",
+        user_message: contact.message,
+        timestamp: new Date().toLocaleString(),
       };
   
       emailjs.send(SERVICE_ID,TEMPLATE_ID, templateParams,USER_ID
