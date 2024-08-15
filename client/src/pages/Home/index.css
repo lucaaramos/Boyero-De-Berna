@@ -32,7 +32,8 @@
     background: black;
     flex-direction: column;
     justify-content: center;
-    padding: 20px;
+    padding: 150px 20px 20px 20px;
+
 }
 
 .container {
