@@ -14,6 +14,7 @@
     "aos": "^2.3.4",
     "axios": "^1.4.0",
     "bootstrap": "^5.3.0-alpha1",
+    "emailjs-com": "^3.2.0",
     "file-saver": "^2.0.5",
     "firebase": "^10.5.0",
     "jspdf": "^2.5.1",
@@ -23,7 +24,7 @@
     "react-datepicker": "^4.16.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.14.2",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -33,7 +34,7 @@
     "eject": "react-scripts eject"
   },
   "engines": {
-    "node": "16.x" 
+    "node": "20.x"
   },
   "eslintConfig": {
     "extends": [
