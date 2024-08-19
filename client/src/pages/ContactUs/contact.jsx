@@ -7,6 +7,7 @@ import emailjs from 'emailjs-com';
 const SERVICE_ID = process.env.REACT_APP_SERVICE_ID;
 const TEMPLATE_ID = process.env.REACT_APP_TEMPLATE_ID;
 const USER_ID = process.env.REACT_APP_USER_ID;
+
 export default function Contact() {
     const [contact, setContact] = useState({
       name:"",
@@ -27,7 +28,6 @@ export default function Contact() {
       const templateParams = {
         user_name: contact.name,
         user_email: contact.email,
-        // user_subject: "Nuevo mensaje de contacto",
         user_message: contact.message,
         timestamp: new Date().toLocaleString(),
       };
@@ -42,7 +42,6 @@ export default function Contact() {
           alert('Hubo un error al enviar el mensaje. Por favor, inténtelo de nuevo.');
         });
   
-      // Limpiar el formulario después de enviar
       setContact({
         name: "",
         email: "",
