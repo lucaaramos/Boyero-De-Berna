@@ -23,6 +23,12 @@ export default function NewsList() {
     }
   };
 
+  const getNewsImageSrc = (imagePath) => {
+    if (!imagePath || imagePath === "undefined" || imagePath === "null") return img;
+    if (/^https?:\/\//i.test(imagePath)) return imagePath;
+    return `${process.env.REACT_APP_URI_API}${imagePath}`;
+  };
+
   return (
     <div className="aboutDivBack">
       <img src={img}  className='responsive-image' alt="">
@@ -38,7 +44,12 @@ export default function NewsList() {
               <h3 className="newsTitle">{noticia.title}</h3>
               <p className="newsContent">{noticia.content}</p>
               <p className="newsAuthor">Por: {noticia.user.name}</p>
-              <img className='img' src={`${process.env.REACT_APP_URI_API}${noticia.image}`} />
+              <img
+                className='img'
+                src={getNewsImageSrc(noticia.image)}
+                alt={noticia.title || "Noticia"}
+                onError={(e) => { e.currentTarget.src = img; }}
+              />
               {/* C:\Users\lucav\OneDrive\Desktop\deploy\Boyero-De-Berna\app2\optimize\large-1697558057705.jpg */}
               
               <div className='divButtons'>
