@@ -1,13 +1,19 @@
-function generateRandomIntegers(max) {
-    let primero = Math.floor(Math.random()* (max - 0 + 1)) + 0;
-    const randomIntegers = [primero];
-    let length = max >= 4 ? 4 : max; 
-    for (let i = 0; randomIntegers.length < length ; i++) {
-        const randomInteger = Math.floor(Math.random() * (max - 0 + 1)) + 0;
-        if(!randomIntegers.includes(randomInteger)){
+function generateRandomIntegers(totalItems, requestedAmount) {
+    const total = Number(totalItems) || 0;
+    const asked = Number(requestedAmount) || 0;
+
+    if (total <= 0 || asked <= 0) return [];
+
+    const length = Math.min(total, asked);
+    const randomIntegers = [];
+
+    while (randomIntegers.length < length) {
+        const randomInteger = Math.floor(Math.random() * total);
+        if (!randomIntegers.includes(randomInteger)) {
             randomIntegers.push(randomInteger);
         }
     }
+
     return randomIntegers;
 }
 

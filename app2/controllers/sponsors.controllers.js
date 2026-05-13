@@ -29,13 +29,15 @@ const getSponsors = (req,res) => {
 }
 
 const getSponsorsAleatory = (req,res) => {
-    const {amount} = req.params
+    const amount = parseInt(req.params.amount, 10);
     const queryData = `select * from sponsors where status = '1'`
     try {
         conn.query(queryData,(err,resp) => {
             if(err)  return res.status(500).json({err})
-            const randoms = generateRandomIntegers(amount);
-        let data = randoms.map(e=>resp[e])
+            if (!resp?.length) return res.status(200).json({data: []});
+            const safeAmount = Number.isNaN(amount) ? 4 : amount;
+            const randoms = generateRandomIntegers(resp.length, safeAmount);
+            let data = randoms.map(index => resp[index]).filter(Boolean)
             return res.status(200).json({data})
         })
     }catch(e){
@@ -95,4 +97,3 @@ module.exports = {
     updtateSponsor,
     getSponsorsAleatory
 }
-

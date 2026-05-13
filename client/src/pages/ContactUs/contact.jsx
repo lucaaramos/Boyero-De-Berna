@@ -24,8 +24,18 @@ export default function Contact() {
     }
     const handleSubmit = (e) => {
       e.preventDefault();
+
+      if (!SERVICE_ID || !TEMPLATE_ID || !USER_ID) {
+        alert("Falta configurar EmailJS en variables de entorno.");
+        return;
+      }
   
       const templateParams = {
+        from_name: contact.name,
+        reply_to: contact.email,
+        message: contact.message,
+        city: contact.city,
+        phone: contact.numberPhone,
         user_name: contact.name,
         user_email: contact.email,
         user_message: contact.message,
@@ -37,18 +47,17 @@ export default function Contact() {
         .then((response) => {
           console.log('SUCCESS!', response.status, response.text);
           alert('Mensaje enviado con éxito');
+          setContact({
+            name: "",
+            email: "",
+            message: "",
+            city: "",
+            numberPhone: ""
+          });
         }, (error) => {
-          console.error('FAILED...', error);
-          alert('Hubo un error al enviar el mensaje. Por favor, inténtelo de nuevo.');
+          console.error('FAILED...', error?.status, error?.text, error);
+          alert(`Error al enviar (${error?.status || "sin código"}): ${error?.text || "revise configuración de EmailJS"}`);
         });
-  
-      setContact({
-        name: "",
-        email: "",
-        message: "",
-        city: "",
-        numberPhone: ""
-      });
     }
         return (
       <div className='' style={{backgroundImage: `url(${dog})`,display:"flex",flexDirection:"column",alignItems:"center", backgroundRepeat:"no-repeat"}}>
