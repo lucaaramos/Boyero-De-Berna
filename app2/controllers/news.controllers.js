@@ -1,4 +1,10 @@
 const conn = require("../config/config");
+const DEFAULT_IMAGE = "https://th.bing.com/th/id/OIP.KCBUNS5Iy8kyliWRZRlSOAAAAA?pid=ImgDet&rs=1";
+
+const resolveNewsImage = (image) => {
+  if (!image || image === "undefined" || image === "null") return DEFAULT_IMAGE;
+  return image;
+};
 
 const getAllNoticias = (req, res) => {
   try {
@@ -16,7 +22,7 @@ const getAllNoticias = (req, res) => {
               id: result.id,
               title: result.title,
               content: result.content,
-              image: result?.image !== "undefined" ? result?.image : "https://th.bing.com/th/id/OIP.KCBUNS5Iy8kyliWRZRlSOAAAAA?pid=ImgDet&rs=1",
+              image: resolveNewsImage(result?.image),
               user: {
                 id: result.idUser,
                 name: result.name,
@@ -56,7 +62,7 @@ try {
               id: result.id,
               title: result.title,
               content: result.content,
-              image: result?.image !== "undefined" ? result?.image : "https://th.bing.com/th/id/OIP.KCBUNS5Iy8kyliWRZRlSOAAAAA?pid=ImgDet&rs=1",
+              image: resolveNewsImage(result?.image),
               user: {
                 id: result.idUser,
                 name: result.name,
