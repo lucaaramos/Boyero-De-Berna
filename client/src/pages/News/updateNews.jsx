@@ -42,7 +42,7 @@ export default function UpdateNews() {
     setImage(event?.target?.files[0]);
     setImage3(URL.createObjectURL(event?.target?.files[0]));
 };
-const handleSubmit = (event) => {
+const handleSubmit = async (event) => {
     event.preventDefault()
     const formData = new FormData();
     formData.append("image", image);
@@ -56,42 +56,26 @@ const handleSubmit = (event) => {
       }
   };
 
-    setTimeout(() => {
-        axios(config)
-            .then((e) => {
-                if (image) {
-                    const config2 = {
-                        method: "post",
-                        baseURL: `${process.env.REACT_APP_URI_API}/image/news/${id}`,
-                        headers: { token: jwt },
-                        data: formData,
-                    };
-                    axios(config2)
-                        .then((e) => {
-                            alert("noticia creada con exito")
-                            window.location.replace('/news')
-                        })
-                        .catch((error) => {
-                            console.log(
-                                "Error en la petición para actualizar la imagen:",
-                                error
-                            );
-                        });
-                }
-                else {
-                    alert("noticia creada con exito")
-                    navigate("/news")
-                  window.location.reload();
-                    
-                }
-            })
-            .catch((error) => {
-                console.log(
-                    "Error en la petición para actualizar información del usuario:",
-                    error
-                );
-            });
-    }, 1000);
+    try {
+      await axios(config)
+      if (image) {
+        const config2 = {
+          method: "post",
+          baseURL: `${process.env.REACT_APP_URI_API}/image/news/${id}`,
+          headers: { token: jwt },
+          data: formData,
+        };
+        await axios(config2)
+      }
+      alert("noticia creada con exito")
+      navigate("/news")
+      window.location.reload();
+    } catch (error) {
+      console.log(
+        "Error en la petición para actualizar información del usuario:",
+        error
+      );
+    }
 };
 
 
