@@ -12,7 +12,8 @@ const getAllNoticias = (req, res) => {
       `SELECT news.*, users.id AS idUser, users.name, users.email 
       FROM news 
       JOIN users ON news.user_id = users.id 
-      WHERE news.status = 1`,
+      WHERE news.status = 1
+      ORDER BY news.publication_date DESC, news.id DESC`,
       (error, results) => {
         if (error) {
           res.status(500).json({ error: "Error al consultar noticias" });

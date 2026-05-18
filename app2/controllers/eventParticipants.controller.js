@@ -2,7 +2,8 @@ const conn = require("../config/config");
 
 const createParticipant = (req,res)=>{
     const {id_events,category_id} = req.params
-    const {name,sex,race,registration_number,date_birth,name_dad,name_mom,breeder,name_owner,id_user, expositor} = req.body
+    const {name,sex,registration_number,date_birth,name_dad,name_mom,breeder,name_owner,id_user, expositor} = req.body
+    const race = req.body?.race || "Boyero de Berna"
     try{
         if(name.length || sex.length || race.length || registration_number.length || date_birth.length || name_dad.length || name_mom.length || breeder.length || name_owner.length || expositor.length){
         const verifyDog = `select * from events_participants where registration_number = '${registration_number}' and id_events = '${id_events}'`
