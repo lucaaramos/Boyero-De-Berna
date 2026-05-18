@@ -14,7 +14,6 @@ export default function CreateParticipant() {
   const [form, setForm] = useState({
     name: "",
     sex: "",
-    race: "",
     registration_number: "",
     date_birth: "",
     name_dad: "",
@@ -30,7 +29,6 @@ export default function CreateParticipant() {
     setForm({
       name: dog.name,
       sex: dog.sex,
-      race: dog.race,
       registration_number: dog.registration_number,
       date_birth: dog.date_birth,
       name_dad:dog.name_dad,
@@ -136,14 +134,6 @@ export default function CreateParticipant() {
 
       <h3>Inscripción a {title}</h3>
       <form onSubmit={handleSubmit} style={{ marginTop: "90px" }}>
-        <input
-          type="text"
-          name="race"
-          value={form.race}
-          onChange={handleInputChange}
-          placeholder="Raza"
-        />
-        {error && error.includes("race") && <p className="error">{error}</p>}
         <input
           type="number"
           name="registration_number"
