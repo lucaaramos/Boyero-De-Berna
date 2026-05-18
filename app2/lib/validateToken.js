@@ -1,12 +1,10 @@
 const jwt = require("jsonwebtoken")
 
-const JWT_SECRET = process.env.JWT_SECRET || "change-me-jwt-secret";
-const JWT_PASSWORD_RESET_SECRET = process.env.JWT_PASSWORD_RESET_SECRET || "change-me-reset-secret";
 
 const tokenValidation = (req, res, next)=>{
     const token = req.header("token")
     if(!token) return res.status(401).json("Access denied")
-    const payload = jwt.verify(token, JWT_SECRET) 
+    const payload = jwt.verify(token,"tokenseguro123") 
     req.user = {
         email : payload.email,
         name: payload.name,
@@ -19,7 +17,7 @@ const tokenValidation = (req, res, next)=>{
 const resetPasswordToken= (req, res, next)=>{
     const token = req.header("token")
     if(!token) return res.status(401).json("Access denied")
-    const payload = jwt.verify(token, JWT_PASSWORD_RESET_SECRET) 
+    const payload = jwt.verify(token,"clave-segura") 
     req.user = {
         id: payload.id,
         userId: payload.id,
