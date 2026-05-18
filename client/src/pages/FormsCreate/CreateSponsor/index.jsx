@@ -39,7 +39,7 @@ export default function CreateSponsors({getData}) {
     setImage3(URL.createObjectURL(event?.target?.files[0]));
 };
 
-const handleSubmit = (event) => {
+const handleSubmit = async (event) => {
     event.preventDefault()
     const formData = new FormData();
     formData.append("image", image);
@@ -54,37 +54,26 @@ const handleSubmit = (event) => {
         },
     };
 
-    setTimeout(() => {
-        axios(config)
-            .then(({data}) => {
-                if (image) {
-                    const config2 = {
-                        method: "post",
-                        baseURL: `${process.env.REACT_APP_URI_API}/image/imageSponsors/${data.data}`,
-                        headers: { token: jwt },
-                        data: formData,
-                    };
-                    axios(config2)
-                        .then((e) => {
-                            alert("evento creado con exito")
-                            getData()
-                            resetForm()
-                        })
-                        .catch((error) => {
-                            console.log(
-                                "Error en la petición para actualizar la imagen:",
-                                error
-                            );
-                        });
-                }
-            })
-            .catch((error) => {
-                console.log(
-                    "Error en la petición para actualizar información del usuario:",
-                    error
-                );
-            });
-    }, 1000);
+    try {
+      const { data } = await axios(config);
+      if (image) {
+        const config2 = {
+          method: "post",
+          baseURL: `${process.env.REACT_APP_URI_API}/image/imageSponsors/${data.data}`,
+          headers: { token: jwt },
+          data: formData,
+        };
+        await axios(config2);
+      }
+      alert("evento creado con exito")
+      getData()
+      resetForm()
+    } catch (error) {
+      console.log(
+        "Error en la petición para actualizar información del usuario:",
+        error
+      );
+    }
 };
   return (
     <div className='divFormNews'>

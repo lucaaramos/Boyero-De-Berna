@@ -2,16 +2,21 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import useUser from '../../../componets/hook/UseUser';
 import { useNewsContext } from '../../../contexts/NewsContext';
-import { useNavigate } from 'react-router-dom';
 import './index.css'
 export default function CreateNews() {
-  const navigate = useNavigate();
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [image, setImage] = useState('')
   const [image3, setImage3] = useState("");
   const { jwt } = useUser();
   const { dispatch } = useNewsContext();
+
+  const resetForm = () => {
+    setTitle('');
+    setContent('');
+    setImage('');
+    setImage3('');
+  };
 
   const handleFileChange = (event) => {
       try {
@@ -39,37 +44,27 @@ export default function CreateNews() {
           
         },
       };
-      setTimeout(() => {
-        axios(config)
-            .then((e) => {
-                console.log(e.data.id)
-                if (image) {
-                    const config2 = {
-                        method: "post",
-                        baseURL: `${process.env.REACT_APP_URI_API}/image/news/${e.data.id}`,
-                        headers: { token: jwt },
-                        data: formData,
-                    };
-                    axios(config2)
-                        .then((e) => {
-                            alert("evento creado con exito")
-                            navigate("/news")
-                        })
-                        .catch((error) => {
-                            console.log(
-                                "Error en la petición para actualizar la imagen:",
-                                error
-                            );
-                        });
-                }
-            })
-            .catch((error) => {
-                console.log(
-                    "Error en la petición para actualizar información del usuario:",
-                    error
-                );
-            });
-    }, 1000);
+      try {
+        const response = await axios(config);
+        if (image) {
+          const config2 = {
+            method: "post",
+            baseURL: `${process.env.REACT_APP_URI_API}/image/news/${response.data.id}`,
+            headers: { token: jwt },
+            data: formData,
+          };
+          await axios(config2);
+        }
+        const updatedNews = await axios.get(`${process.env.REACT_APP_URI_API}/news/`);
+        dispatch({ type: 'SET_NEWS', payload: updatedNews.data });
+        resetForm();
+        alert("evento creado con exito")
+      } catch (error) {
+        console.log(
+          "Error en la petición para actualizar información del usuario:",
+          error
+        );
+      }
   
   };
   
