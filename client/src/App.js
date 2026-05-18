@@ -17,8 +17,8 @@ import UpdateEvent from './pages/FormsUpdate/UpdateExpo';
 import CreateParticipant from './pages/FormsCreate/CreateParticipant';
 import UpdateNews from './pages/News/updateNews';
 import Sponsors from './pages/Sponsors/Sponsors';
-import RecuperarContraseña from './componets/ContainerLogin/RecuperarContraseña';
-import ResetPassword from './componets/ContainerLogin/ResetPassword';
+import RecuperarContrasenaPage from './pages/RecuperarContrasena/RecuperarContrasena';
+import ResetPasswordPage from './pages/ResetPassword/ResetPassword';
 
 function App() {
   return (
@@ -41,8 +41,8 @@ function App() {
           <Route path="/news" element={<NewsList/>}/>
           <Route path='/registar-expo/:title/:id' element={<CreateParticipant/>}/>
           <Route path="/update-news/:id" element={<UpdateNews/>} />
-          <Route path="/recuperar-contraseña" element={<RecuperarContraseña/>} />
-          <Route path="/:token/restore" element={<ResetPassword/>} />
+          <Route path="/recuperar-contraseña" element={<RecuperarContrasenaPage/>} />
+          <Route path="/:token/restore" element={<ResetPasswordPage/>} />
         </Routes>
         <Footer/>
       </BrowserRouter>
