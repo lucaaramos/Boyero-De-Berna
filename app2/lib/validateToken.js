@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken")
 
-const JWT_SECRET = process.env.JWT_SECRET || "change-me-jwt-secret";
-const JWT_PASSWORD_RESET_SECRET = process.env.JWT_PASSWORD_RESET_SECRET || "change-me-reset-secret";
+const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_PASSWORD_RESET_SECRET = process.env.JWT_PASSWORD_RESET_SECRET;
 
 const tokenValidation = (req, res, next)=>{
     const token = req.header("token")

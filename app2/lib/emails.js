@@ -14,8 +14,8 @@ const verifyResendConfig = () => {
 };
 
 const sendRecoveryPasswordEmail = async ({ to, token }) => {
-  const baseUrl = process.env.FRONTEND_URL || process.env.URL;
-  const restoreUrl = `${baseUrl}/${token}/restore`;
+  const frontendUrl = process.env.FRONTEND_URL || process.env.REACT_APP_URI_CLIENT || process.env.URL;
+  const restoreUrl = `${frontendUrl}/${token}/restore`;
 
   if (!RESEND_API_KEY || !RESEND_FROM_EMAIL) {
     throw new Error('Resend no configurado');

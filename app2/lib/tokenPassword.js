@@ -3,7 +3,7 @@ require('dotenv').config();
 
 // Datos del usuario que solicita el restablecimiento de contraseña
 const userId = 123; // Cambia esto por el ID del usuario
-const secretKey = process.env.JWT_PASSWORD_RESET_SECRET || 'change-me-reset-secret';
+const secretKey = process.env.JWT_PASSWORD_RESET_SECRET;
 
 // Generar el token
 const token = jwt.sign({ userId }, secretKey, { expiresIn: '1h' });
