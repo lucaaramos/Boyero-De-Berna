@@ -19,6 +19,7 @@ import UpdateNews from './pages/News/updateNews';
 import Sponsors from './pages/Sponsors/Sponsors';
 import RecuperarContrasenaPage from './pages/RecuperarContrasena/RecuperarContrasena';
 import ResetPasswordPage from './pages/ResetPassword/ResetPassword';
+import NewsDetail from './pages/News/NewsDetail.jsx';
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
           <Route path='/exhibitions/nueva-expo' element={<CreateEvent/>}/>
           <Route path='/exhibitions/actualizar-expo/:id' element={<UpdateEvent/>}/>
           <Route path="/news" element={<NewsList/>}/>
+          <Route path="/news/:id" element={<NewsDetail />} />
           <Route path='/registar-expo/:title/:id' element={<CreateParticipant/>}/>
           <Route path="/update-news/:id" element={<UpdateNews/>} />
           <Route path="/recuperar-contraseña" element={<RecuperarContrasenaPage/>} />
