@@ -1,0 +1,108 @@
+/* desktop.css */
+
+.desktop-hero {
+  position: relative;
+
+  width: 100%;
+  height: 100vh;
+
+  overflow: hidden;
+}
+
+/* CAROUSEL */
+
+.desktop-carousel {
+  width: 100%;
+  height: 100%;
+}
+
+/* OVERLAY */
+
+.desktop-overlay {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  padding: 50px;
+  box-sizing: border-box;
+
+  background: linear-gradient(
+    to left,
+    rgba(0, 0, 0, 0.82),
+    rgba(0, 0, 0, 0.25),
+    transparent
+  );
+}
+
+.desktop-content {
+  width: 520px;
+
+  color: white;
+}
+
+.desktop-tag {
+  display: inline-block;
+
+  padding: 10px 18px;
+
+  border-radius: 999px;
+
+  background-color: rgba(255, 255, 255, 0.15);
+
+  margin-bottom: 24px;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.desktop-content h1 {
+  font-size: 4.5rem;
+
+  line-height: 1.1;
+
+  margin-bottom: 24px;
+}
+
+.desktop-content p {
+  font-size: 1.1rem;
+
+  line-height: 2;
+
+  color: #d8d8d8;
+
+  margin-bottom: 40px;
+}
+
+.desktop-redes {
+  display: flex;
+  align-items: center;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 1100px) {
+  .desktop-content {
+    width: 420px;
+  }
+
+  .desktop-content h1 {
+    font-size: 3.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .desktop-overlay {
+    padding: 25px;
+  }
+
+  .desktop-content {
+    width: 100%;
+  }
+
+  .desktop-content h1 {
+    font-size: 2.8rem;
+  }
+}

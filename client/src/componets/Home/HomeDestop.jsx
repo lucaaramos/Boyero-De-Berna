@@ -1,47 +1,62 @@
+// HomeDestop.jsx
+
 import React from "react";
+
 import Carrusel from "../Carrusel/Carrusel";
+
 import { Redes } from "../Redes/Redes";
+
+import "./desktop.css";
 
 export const HomeDestop = () => {
   return (
-    <div>
-      <div className="imagen-zoom">
+    <section className="desktop-hero">
+      {/* CAROUSEL */}
+
+      <div className="desktop-carousel">
         <Carrusel />
       </div>
-      <div
-        className="gradient"
-        style={{ position: "absolute", width: "34%", zIndex: 100, right: 1 }}
-      >
-        <h1
-          style={{ color: "#c9c9c9" }}
-          data-aos="slide-left"
-          data-aos-duration="2000"
-        >
-          Boyero de Berna Club Argentino
-        </h1>
-        <p
-          style={{ color: "#c9c9c9" }}
-          data-aos="flip-left"
-          data-aos-duration="2000"
-        >
-          El Club del Boyero de Berna en Argentina, desde hace años y en forma
-          constante ha desarrollado su labor cotidiana e incesante dedicándose
-          al mantenimiento y mejoramiento del estándar de la raza. Siendo
-          expertos e idóneos competentes en el cuidado y atención del bienestar
-          de los perros. Es desde el Club del Boyero de Berna en Argentina,
-          donde se brinda y comparte la información académica teórica-practica
-          en medicina veterinaria, a través del saber de profesionales
-          destacados a nivel nacional e internacional (cursos, disertaciones,
-          seminarios, charlas informativas, etc.) sobre la raza como así también
-          la experiencia de años en cuidadores de la misma.
-        </p>
-        <div
-          className="redes"
-          style={{ width: "100%", display: "flex", justifyContent: "center" }}
-        >
-          <Redes />
+
+      {/* OVERLAY */}
+
+      <div className="desktop-overlay">
+        <div className="desktop-content">
+          <span
+            className="desktop-tag"
+            data-aos="fade-right"
+            data-aos-duration="1200"
+          >
+            Boyero de Berna Club Argentino
+          </span>
+
+          <h1
+            data-aos="fade-left"
+            data-aos-duration="1400"
+          >
+            Pasión y compromiso por la raza
+          </h1>
+
+          <p
+            data-aos="fade-up"
+            data-aos-duration="1600"
+          >
+            Desde hace años trabajamos
+            constantemente en el mantenimiento,
+            desarrollo y bienestar del Boyero de
+            Berna en Argentina, compartiendo
+            conocimientos y promoviendo la cría
+            responsable.
+          </p>
+
+          <div
+            className="desktop-redes"
+            data-aos="zoom-in"
+            data-aos-duration="1800"
+          >
+            <Redes />
+          </div>
         </div>
       </div>
-    </div>
+    </section>
   );
-}
+};
