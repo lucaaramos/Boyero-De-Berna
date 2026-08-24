@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import "./index.css"
 import image from "./image/bg.png"
@@ -6,40 +6,52 @@ import useUser from '../hook/UseUser'
 export const NavBarDest = () => {
     const {user} = useUser()
     const {isPhone,isLoggedIn,logout} = useUser()
-      window.addEventListener('scroll', function() {
-      const navbar = document.querySelector('.navBar2');
-      const navbar2 = document.querySelector('.contain_navigate');
-      if(!isPhone){
-      if(window.scrollY > 150) {
-        navbar.classList.add('navbar-scrolled');
-        navbar2.classList.add('contain_navigate-scrolled');
-      } else {
-        navbar2.classList.remove('contain_navigate-scrolled');
-        navbar.classList.remove('navbar-scrolled');
-      }}
-    });
+    const [isScrolled, setIsScrolled] = useState(false);
+
+    useEffect(() => {
+      const handleScroll = () => {
+        if (!isPhone) {
+          setIsScrolled(window.scrollY > 150);
+        }
+      };
+
+      handleScroll();
+      window.addEventListener('scroll', handleScroll);
+
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+      };
+    }, [isPhone]);
 
   return (
-    <div id="nav" className='navBar2'>
+    <div id="nav" className={`navBar2 ${isScrolled ? 'navbar-scrolled' : ''}`}>
         <div className='contain_nb_image'>
-            <img src={image} style={{width:"60px",borderRadius: "0 0 30px 30px"}} />
+            <img src={image} alt="Logo Boyero de Berna Club Argentino" style={{width:"60px",borderRadius: "0 0 30px 30px"}} />
         </div>
-        <div className='contain_navigate'>
+        <div className={`contain_navigate ${isScrolled ? 'contain_navigate-scrolled' : ''}`}>
           <ul>
-          <Link to="/" className='navigate'><li>Inicio</li></Link>
-          <Link to='/aboutUs' className='navigate'><li>Sobre Nosotros</li></Link>  
-            <Link to='/exhibitions' className='navigate'><li>Exposiciones</li></Link>
-            <Link to='/news' className='navigate'><li> Noticias</li></Link>
-            <Link to='/gallery' className='navigate'><li></li>Fotos</Link>
-            <Link to='/contact' className='navigate'><li>Contacto</li></Link>
+            <li><Link to="/" className='navigate'>Inicio</Link></li>
+            <li><Link to='/aboutUs' className='navigate'>Sobre Nosotros</Link></li>
+            <li><Link to='/exhibitions' className='navigate'>Exposiciones</Link></li>
+            <li><Link to='/news' className='navigate'>Noticias</Link></li>
+            <li><Link to='/gallery' className='navigate'>Fotos</Link></li>
+            <li><Link to='/contact' className='navigate'>Contacto</Link></li>
             {/* <Link to='/sponsors'><li className='navigate'>Sponsors</li></Link> */}
             {
                   user?.type === "admin" ? 
-            <Link to='/sponsors' className='navigate'><li>Sponsors</li></Link>
+            <li><Link to='/sponsors' className='navigate'>Sponsors</Link></li>
                   :<></>
               }
-            <Link to='/contact'><li className='li_member'>Ser Miembro</li></Link>
-            {!isLoggedIn ? <Link to='/ingresar'><li className='navigate'>Iniciar Sesión</li></Link> : <span className='navigate' onClick={logout}>Cerrar Sesión</span>}
+            <li><Link to='/contact' className='li_member'>Ser Miembro</Link></li>
+            {!isLoggedIn ? (
+              <li><Link to='/ingresar' className='navigate'>Iniciar Sesión</Link></li>
+            ) : (
+              <li>
+                <button type="button" className='navigate nav-button-logout' onClick={logout}>
+                  Cerrar Sesión
+                </button>
+              </li>
+            )}
           </ul>
         </div>
             </div>

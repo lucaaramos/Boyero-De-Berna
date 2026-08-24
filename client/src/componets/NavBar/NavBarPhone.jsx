@@ -1,55 +1,89 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {faBars,faXmark} from "@fortawesome/free-solid-svg-icons"
 import { Link } from 'react-router-dom'
 import useUser from '../hook/UseUser'
 export const NavBarPhone = () => {
-    const {isLoggedIn,logout} = useUser()
+    const {isLoggedIn,logout, user} = useUser()
     const [menu, setMenu] = useState(false)
-    const menuRef = useRef(null)
-    useEffect(()=>{
-        let handle = (e)=>{
-            if(!menuRef?.current?.contains(e?.target)){
-                setMenu(false)
-            }
-        }
-        document.addEventListener("mousedown",handle)
-        return()=>{
-            document.removeEventListener("mousedown",handle)
-        }
-    })
+
+    useEffect(() => {
+      const handleEscape = (e) => {
+        if (e.key === "Escape") setMenu(false);
+      };
+
+      document.addEventListener("keydown", handleEscape);
+      return () => document.removeEventListener("keydown", handleEscape);
+    }, []);
+
+    useEffect(() => {
+      document.body.style.overflow = menu ? "hidden" : "";
+      return () => {
+        document.body.style.overflow = "";
+      };
+    }, [menu]);
+
+    const closeMenu = () => setMenu(false);
+
     return (
         !menu? <>
-            <div style={{position:"fixed", zIndex:9999,backgroundColor:"#B06440",width:"100%",height:"60px",display:"flex",justifyContent:'center',top:0,alignItems: "center"}}>
-                
-                <FontAwesomeIcon icon={faBars} style={{fontSize:30,position:"absolute",left:15,top:15}} onClick={()=>setMenu(!menu)}/>       
-                <p style={{textAlign:"center",color:"white",marginTop:8}}>Boyero de Berna Club Argentino</p>
-                
+            <div className="nav-phone-topbar">
+                <button
+                  type="button"
+                  className="nav-phone-icon-button"
+                  aria-label="Abrir menú de navegación"
+                  aria-expanded={menu}
+                  aria-controls="mobile-navigation"
+                  onClick={() => setMenu(true)}
+                >
+                  <FontAwesomeIcon icon={faBars} />
+                </button>
+                <p className="nav-phone-title">Boyero de Berna Club Argentino</p>
             </div>
         </>:<>
         {
-            
-            <div ref={menuRef} style={{position:"fixed",zIndex:99999,backgroundColor:"#B06440",height:"100vh",width:"50vw",left:0}}>
-                <FontAwesomeIcon icon={faXmark} style={{fontSize:30,position:"absolute",left:10,top:5}} onClick={()=>setMenu(!menu)}/>       
-                <div className='contain_navigate'>
-                    <ul style={{display:"flex",flexDirection:"column",margin:"180px 0 0 50px",alignItems: "flex-start"}}>
-                        <Link to="/" style={{color:" #c9c9c9"}} onClick={()=>setMenu(!menu)}><li>Inicio</li></Link>
-                        <Link to='/aboutUs' style={{color:" #c9c9c9",marginTop:"10px"}} onClick={()=>setMenu(!menu)} ><li>Sobre Nosotros</li></Link>  
-                        <Link to='/news' style={{color:" #c9c9c9",marginTop:"10px"}} onClick={()=>setMenu(!menu)}><li>Noticias</li></Link>
-                        <Link to='/exhibitions' style={{color:" #c9c9c9",marginTop:"10px"}} onClick={()=>setMenu(!menu)}><li>Exposiciones</li></Link>
-                        <Link to='/gallery' style={{color:" #c9c9c9",marginTop:"10px"}} onClick={()=>setMenu(!menu)}><li>Fotos</li></Link>
-                        <Link to='/contact' style={{color:" #c9c9c9",marginTop:"10px"}} onClick={()=>setMenu(!menu)}><li>Contacto</li></Link>
-                        <Link to='/sponsors' style={{color:" #c9c9c9",marginTop:"10px"}} onClick={()=>setMenu(!menu)}><li>Sponsors</li></Link>
-                        <Link to='/contact' style={{color:" #c9c9c9",marginTop:"10px"}} onClick={()=>setMenu(!menu)}><li>Ser Miembro</li></Link>
-
+            <div className="nav-phone-overlay" onClick={closeMenu}>
+              <div id="mobile-navigation" className="nav-phone-drawer" onClick={(e) => e.stopPropagation()}>
+                <button
+                  type="button"
+                  className="nav-phone-icon-button nav-phone-close"
+                  aria-label="Cerrar menú de navegación"
+                  onClick={closeMenu}
+                >
+                  <FontAwesomeIcon icon={faXmark} />
+                </button>
+                <div className='contain_navigate nav-phone-navigate'>
+                    <ul className="nav-phone-list">
+                        <li><Link to="/" className='navigate nav-phone-link' onClick={closeMenu}>Inicio</Link></li>
+                        <li><Link to='/aboutUs' className='navigate nav-phone-link' onClick={closeMenu}>Sobre Nosotros</Link></li>
+                        <li><Link to='/news' className='navigate nav-phone-link' onClick={closeMenu}>Noticias</Link></li>
+                        <li><Link to='/exhibitions' className='navigate nav-phone-link' onClick={closeMenu}>Exposiciones</Link></li>
+                        <li><Link to='/gallery' className='navigate nav-phone-link' onClick={closeMenu}>Fotos</Link></li>
+                        <li><Link to='/contact' className='navigate nav-phone-link' onClick={closeMenu}>Contacto</Link></li>
+                        {user?.type === "admin" ? (
+                          <li><Link to='/sponsors' className='navigate nav-phone-link' onClick={closeMenu}>Sponsors</Link></li>
+                        ) : null}
+                        <li><Link to='/contact' className='li_member nav-phone-member' onClick={closeMenu}>Ser Miembro</Link></li>
                         {!isLoggedIn ? 
-                            <Link to='/ingresar' style={{color:" #c9c9c9",marginTop:"10px"}} onClick={()=>setMenu(!menu)}><li className=''>Iniciar Sesión</li></Link> 
+                            <li><Link to='/ingresar' className='navigate nav-phone-link' onClick={closeMenu}>Iniciar Sesión</Link></li>
                         :
-                            <Link to='/' onClick={()=>setMenu(!menu)} style={{color:" #c9c9c9",marginTop:"10px"}}><li className='li_member' onClick={logout}>Cerrar Sesión</li></Link>
+                            <li>
+                              <button
+                                type="button"
+                                className='li_member nav-phone-member nav-phone-logout'
+                                onClick={() => {
+                                  logout();
+                                  closeMenu();
+                                }}
+                              >
+                                Cerrar Sesión
+                              </button>
+                            </li>
                         }
                     </ul>
                 </div>
             </div>
+          </div>
         }</>
   )
 }
