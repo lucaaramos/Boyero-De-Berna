@@ -7,6 +7,7 @@ const news = require("./routes/news.routes")
 const images = require("./routes/image.routes")
 const sponsors = require("./routes/sponsors.router")
 const participants = require("./routes/eventParticipants.routes")
+const contact = require("./routes/contact.routes")
 const path = require('path')
 
 // app.use(cors());
@@ -33,6 +34,7 @@ app.use("/user",user)
 app.use("/news",news)
 app.use("/image",images)
 app.use("/participant",participants)
+app.use("/contact",contact)
 
 
 

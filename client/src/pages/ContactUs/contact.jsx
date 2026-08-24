@@ -1,16 +1,11 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 import dog from "../../assets/boyero.jpg";
 
 import "./index.css";
 
 import { Members } from "../../componets/Members/Members.jsx";
-
-import emailjs from "emailjs-com";
-
-const SERVICE_ID = process.env.REACT_APP_SERVICE_ID;
-const TEMPLATE_ID = process.env.REACT_APP_TEMPLATE_ID;
-const USER_ID = process.env.REACT_APP_USER_ID;
 
 export default function Contact() {
   const [loading, setLoading] = useState(false);
@@ -43,66 +38,23 @@ export default function Contact() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!SERVICE_ID || !TEMPLATE_ID || !USER_ID) {
-      alert(
-        "Falta configurar EmailJS en variables de entorno."
-      );
-
-      return;
-    }
-
     try {
       setLoading(true);
 
-      const templateParams = {
-        from_name: contact.name,
-
-        reply_to: contact.email,
-
-        message: contact.message,
-
-        city: contact.city,
-
-        phone: contact.numberPhone,
-
-        user_name: contact.name,
-
-        user_email: contact.email,
-
-        user_message: contact.message,
-
-        timestamp: new Date().toLocaleString(),
-      };
-
-      const response = await emailjs.send(
-        SERVICE_ID,
-        TEMPLATE_ID,
-        templateParams,
-        USER_ID
-      );
-
-      console.log(
-        "SUCCESS!",
-        response.status,
-        response.text
+      await axios.post(
+        `${process.env.REACT_APP_URI_API}/contact`,
+        contact
       );
 
       alert("Mensaje enviado con éxito");
 
       resetForm();
     } catch (error) {
-      console.error(
-        "FAILED...",
-        error?.status,
-        error?.text,
-        error
-      );
+      console.error("FAILED...", error);
 
       alert(
-        `Error al enviar (${error?.status || "sin código"}): ${
-          error?.text ||
-          "Revise configuración de EmailJS"
-        }`
+        error?.response?.data?.error ||
+          "Error al enviar el mensaje. Intenta nuevamente."
       );
     } finally {
       setLoading(false);
